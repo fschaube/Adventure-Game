@@ -4,11 +4,13 @@ items = []
 
 
 def print_pause(string, t):
+    """Create a time delay between the strings and print the strings"""
     print(string)
     time.sleep(t)
 
 
 def intro(monster):
+    """print the intro"""
     print_pause("#### THE MONSTERS OF PRAGUE ####\n", 2)
     print_pause(
         'Every year the' + " " +
@@ -23,11 +25,13 @@ def intro(monster):
 
 
 def appearing(monster):
+    """let the monster appear"""
     print_pause("You walk on.", 2)
     print_pause("The" + " " + monster + " " + "appears!!!", 2)
 
 
 def repeat_game():
+    """repeat the game"""
     while True:
         playagain = input("Play again (yes/no)?\n")
         if playagain in "yes":
@@ -40,6 +44,7 @@ def repeat_game():
 
 
 def choice1(choice, monster):
+    """handle the first choice"""
     if choice == "1":
         if "flashlight" not in items:
             print_pause("The Charles Bridge is really foggy", 2)
@@ -53,6 +58,7 @@ def choice1(choice, monster):
 
 
 def choice2(choice, monster):
+    """handle the second choice"""
     if choice == "2":
         if "mirrors" not in items:
             print_pause("The St. Vitus Cathedral is totally empty and dark", 2)
@@ -67,6 +73,7 @@ def choice2(choice, monster):
 
 
 def choice3(choice, monster):
+    """handle the third choice"""
     if choice == "3":
         print_pause("You enter the castle.", 2)
         print_pause("You hear a terrible sound in the great hall", 2)
@@ -115,6 +122,7 @@ def choice3(choice, monster):
 
 
 def light_choice(monster):
+    """handle the excplicit decision in choice1"""
     lightchoice = input("Do you wanna take it up (yes/no)?\n").lower()
     if lightchoice in "yes":
         items.append("flashlight")
@@ -153,6 +161,7 @@ def light_choice(monster):
 
 
 def mirror_choice(monster):
+    """handle the explicit decision in choice 2"""
     print_pause("There are to little mirrors at the altar.", 2)
     mirrorchoice = input("Do you wanna pick them up(yes/no)?\n").lower()
     if mirrorchoice in "yes":
@@ -194,6 +203,7 @@ def mirror_choice(monster):
 
 
 def oil_choice(monster):
+    """handle the choice after the mirror choice"""
     oilchoice = input(
         "Do you wanna pick up the oil lamp (yes/no)?\n").lower()
     if oilchoice in "yes" and monster == "scary pumpkin":
@@ -212,17 +222,23 @@ def oil_choice(monster):
 
 
 def logic(monster):
+    """handle the whole logic of the game"""
     print_pause("Where do you want to go?\n", 2)
     choice = input(
         "Choose on of the following numbers:\n1." +
         "Charles Bridge\n" +
         "2. St. Vitus Cathedral\n3. Prague Castle\n").lower()
+    if choice not in "1" and choice not in "2" and choice not in "3":
+        print_pause("\nSorry I don't understand!", 0)
+        print_pause("Please repeat the input!\n", 0)
+        logic(monster)
     choice1(choice, monster)
     choice2(choice, monster)
     choice3(choice, monster)
 
 
 def play_game():
+    """combine the most important functions"""
     monster = random.choice(["ghost", "zombie horse", "scary pumpkin"])
     intro(monster)
     logic(monster)
