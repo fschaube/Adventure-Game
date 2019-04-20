@@ -210,7 +210,8 @@ def oil_choice(monster):
         if monster == "scary pumpkin":
             appearing(monster)
             print_pause("You turn your oil lamp on!", 2)
-            print_pause("The" + " " + monster + " " + "get's burned and dies", 2)
+            print_pause("The" + " " + monster +
+                        " " + "get's burned and dies", 2)
             print_pause("YOU WON THE GAME!", 2)
             repeat_game()
         else:
