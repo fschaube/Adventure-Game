@@ -34,10 +34,10 @@ def repeat_game():
     """repeat the game"""
     while True:
         playagain = input("Play again (yes/no)?\n")
-        if playagain in "yes":
+        if playagain == "yes":
             items.clear()
             play_game()
-        elif playagain in "no":
+        elif playagain == "no":
             break
         else:
             repeat_game()
@@ -124,7 +124,7 @@ def choice3(choice, monster):
 def light_choice(monster):
     """handle the excplicit decision in choice1"""
     lightchoice = input("Do you wanna take it up (yes/no)?\n").lower()
-    if lightchoice in "yes":
+    if lightchoice == "yes":
         items.append("flashlight")
         appearing(monster)
         if monster == "ghost":
@@ -138,7 +138,7 @@ def light_choice(monster):
 
         elif monster == "zombie horse":
             print_pause(
-                "You can't fight the" + " " + monster + "yet", 2)
+                "You can't fight the" + " " + monster + " yet", 2)
             print_pause("You need one more item!", 2)
             logic(monster)
         else:
@@ -147,7 +147,7 @@ def light_choice(monster):
                 "effect on the scary pumpkin!", 2)
             print_pause("You faint!", 2)
             repeat_game()
-    elif lightchoice in "no":
+    elif lightchoice == "no":
         if monster == "ghost":
             print_pause("You return to the starting point.", 2)
             logic(monster)
@@ -164,7 +164,7 @@ def mirror_choice(monster):
     """handle the explicit decision in choice 2"""
     print_pause("There are to little mirrors at the altar.", 2)
     mirrorchoice = input("Do you wanna pick them up(yes/no)?\n").lower()
-    if mirrorchoice in "yes":
+    if mirrorchoice == "yes":
         items.append("mirrors")
         appearing(monster)
         if monster == "ghost":
@@ -193,7 +193,7 @@ def mirror_choice(monster):
             print_pause("You need one more item!", 2)
             logic(monster)
 
-    elif mirrorchoice in "no":
+    elif mirrorchoice == "no":
         print_pause("There is also oil lamp.", 2)
         oil_choice(monster)
 
@@ -206,19 +206,24 @@ def oil_choice(monster):
     """handle the choice after the mirror choice"""
     oilchoice = input(
         "Do you wanna pick up the oil lamp (yes/no)?\n").lower()
-    if oilchoice in "yes" and monster == "scary pumpkin":
+    if oilchoice == "yes":
+        if monster == "scary pumpkin":
+            appearing(monster)
+            print_pause("You turn your oil lamp on!", 2)
+            print_pause("The" + " " + monster + " " + "get's burned and dies", 2)
+            print_pause("YOU WON THE GAME!", 2)
+            repeat_game()
+        else:
+            appearing(monster)
+            print_pause("You faint!", 2)
+            repeat_game()
+    elif oilchoice == "no":
         appearing(monster)
-        print_pause("You turn your oil lamp on!", 2)
-        print_pause("The" + " " + monster + " " + "get's burned and dies", 2)
-        print_pause("YOU WON THE GAME!", 2)
+        print_pause("You faint", 2)
         repeat_game()
-    elif oilchoice not in "no":
+    else:
         print_pause("Please type your answer again!", 2)
         oil_choice(monster)
-    else:
-        appearing(monster)
-        print_pause("You faint.", 2)
-        repeat_game()
 
 
 def logic(monster):
